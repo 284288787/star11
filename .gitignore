@@ -1,0 +1,25 @@
+# 忽略git追踪的文件
+
+**/target
+
+**/.settings
+
+**/.project
+
+**/.classpath
+
+**/.gitignore
+
+**/*.iml
+
+**/.idea
+
+**/Thumbs.db
+
+**/.DS_Store
+
+**/*.swp
+
+**/catalina.base_IS_UNDEFINED
+
+/bin
