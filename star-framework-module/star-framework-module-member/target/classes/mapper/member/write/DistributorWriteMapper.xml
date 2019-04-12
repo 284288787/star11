@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.truffle.module.member.dao.write.DistributorWriteDao">
+  <insert id="saveDistributor" useGeneratedKeys="true" keyProperty="distributorId" parameterType="com.star.truffle.module.member.domain.Distributor">
+    insert into distributor(parent_distributor_id, state, head, name, shop_name, shop_code, mobile, region_id, address, enabled, create_time, update_time, open_id, 
+    fans_num, sold_num, business_license, business_license_pic, food_allowance_license, food_allowance_license_pic, acreage, bank_address, 
+    bank_card_name, bank_card_no, apply_id)
+    values(#{parentDistributorId}, #{state}, #{head}, #{name}, #{shopName}, #{shopCode}, #{mobile}, #{regionId}, #{address}, #{enabled}, 
+    #{createTime}, #{updateTime}, #{openId}, #{fansNum}, #{soldNum}, #{businessLicense}, #{businessLicensePic}, 
+    #{foodAllowanceLicense}, #{foodAllowanceLicensePic}, #{acreage}, #{bankAddress}, #{bankCardName}, #{bankCardNo}, #{applyId})
+  </insert>
+
+  <insert id="batchSaveDistributor" parameterType="java.util.List">
+    insert into distributor(parent_distributor_id, state, head, name, shop_name, shop_code, mobile, region_id, address, enabled, create_time, update_time, open_id, 
+    fans_num, sold_num, business_license, business_license_pic, food_allowance_license, food_allowance_license_pic, acreage, bank_address, 
+    bank_card_name, bank_card_no, apply_id)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.parentDistributorId}, #{item.state}, #{item.head}, #{item.name}, #{item.shopName}, #{item.shopCode}, #{item.mobile}, #{item.regionId}, #{item.address}, 
+      #{item.enabled}, #{item.createTime}, #{item.updateTime}, #{item.openId}, #{item.fansNum}, #{item.soldNum}, #{item.businessLicense}, 
+      #{item.businessLicensePic}, #{item.foodAllowanceLicense}, #{item.foodAllowanceLicensePic}, #{item.acreage}, #{item.bankAddress}, 
+      #{item.bankCardName}, #{item.bankCardNo}, #{item.applyId})
+    </foreach>
+  </insert>
+
+  <update id="updateDistributor" parameterType="com.star.truffle.module.member.dto.req.DistributorRequestDto">
+    update distributor
+    <trim prefix="set" suffixOverrides=",">
+      <if test="head != null and head != ''">head = #{head},</if>
+      <if test="name != null and name != ''">name = #{name},</if>
+      <if test="shopName != null and shopName != ''">shop_name = #{shopName},</if>
+      <if test="shopCode != null and shopCode != ''">shop_code = #{shopCode},</if>
+      <if test="mobile != null and mobile != ''">mobile = #{mobile},</if>
+      <if test="regionId != null">region_id = #{regionId},</if>
+      <if test="recommended != null">recommended = #{recommended},</if>
+      <if test="parentDistributorId != null">parent_distributor_id = #{parentDistributorId},</if>
+      <if test="address != null and address != ''">address = #{address},</if>
+      <if test="enabled != null">enabled = #{enabled},</if>
+      <if test="createTime != null">create_time = #{createTime},</if>
+      <if test="updateTime != null">update_time = #{updateTime},</if>
+      <if test="openId != null and openId != ''">open_id = #{openId},</if>
+      <if test="fansNum != null">fans_num = #{fansNum},</if>
+      <if test="soldNum != null">sold_num = #{soldNum},</if>
+      <if test="state != null">state = #{state},</if>
+      <if test="businessLicense != null and businessLicense != ''">business_license = #{businessLicense},</if>
+      <if test="businessLicensePic != null and businessLicensePic != ''">business_license_pic = #{businessLicensePic},</if>
+      <if test="foodAllowanceLicense != null and foodAllowanceLicense != ''">food_allowance_license = #{foodAllowanceLicense},</if>
+      <if test="foodAllowanceLicensePic != null and foodAllowanceLicensePic != ''">food_allowance_license_pic = #{foodAllowanceLicensePic},</if>
+      <if test="acreage != null and acreage != ''">acreage = #{acreage},</if>
+      <if test="bankAddress != null and bankAddress != ''">bank_address = #{bankAddress},</if>
+      <if test="bankCardName != null and bankCardName != ''">bank_card_name = #{bankCardName},</if>
+      <if test="bankCardNo != null and bankCardNo != ''">bank_card_no = #{bankCardNo},</if>
+    </trim>
+    where distributor_id = #{distributorId}
+  </update>
+
+  <update id="addDistributorNum">
+    update distributor
+    <trim prefix="set" suffixOverrides=",">
+      <if test="type != null and type != ''">
+      	<if test="type == 'soldNum'">
+      		sold_num = sold_num + #{num},
+      	</if>
+      	<if test="type == 'fansNum'">
+      		fans_num = fans_num + #{num},
+      	</if>
+      </if>
+    </trim>
+    where distributor_id = #{distributorId}
+  </update>
+
+  <delete id="deleteDistributor" parameterType="java.lang.Long">
+    delete from distributor where distributor_id = #{distributorId}
+  </delete>
+
+  <resultMap id="distributorResponseDtoResultMap" type="com.star.truffle.module.member.dto.res.DistributorResponseDto">
+    <result column="distributor_id" property="distributorId" />
+    <result column="head" property="head" />
+    <result column="name" property="name" />
+    <result column="shop_name" property="shopName" />
+    <result column="shop_code" property="shopCode" />
+    <result column="mobile" property="mobile" />
+    <result column="region_id" property="regionId" />
+    <result column="regionName" property="regionName" />
+    <result column="address" property="address" />
+    <result column="enabled" property="enabled" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="open_id" property="openId" />
+    <result column="fans_num" property="fansNum" />
+    <result column="sold_num" property="soldNum" />
+    <result column="provinceName" property="provinceName" />
+    <result column="cityId" property="cityId" />
+    <result column="cityName" property="cityName" />
+    <result column="areaId" property="areaId" />
+    <result column="areaName" property="areaName" />
+    <result column="townId" property="townId" />
+    <result column="townName" property="townName" />
+    <result column="state" property="state" />
+    <result column="py" property="py" />
+    <result column="business_license" property="businessLicense" />
+    <result column="business_license_pic" property="businessLicensePic" />
+    <result column="food_allowance_license" property="foodAllowanceLicense" />
+    <result column="food_allowance_license_pic" property="foodAllowanceLicensePic" />
+    <result column="acreage" property="acreage" />
+    <result column="bank_address" property="bankAddress" />
+    <result column="bank_card_name" property="bankCardName" />
+    <result column="bank_card_no" property="bankCardNo" />
+  </resultMap>
+
+  <sql id="sql_column">
+    parent_distributor_id, distributor_id, head, distributor.`name`, shop_name, shop_code, mobile, distributor.region_id, address, distributor.state, 
+    enabled, distributor.create_time, distributor.update_time, open_id, distributor.fans_num, recommended,
+    distributor.sold_num, r.`name` regionName, r.`name` regionName, ifnull(p.shortName, p.areaName) provinceName , 
+    ifnull(c.shortName, c.areaName) cityName, ifnull(a.shortName, a.areaName) areaName, ifnull(t.shortName, t.areaName) townName,
+    p.areaId provinceId , c.areaId cityId, a.areaId areaId, t.areaId townId,
+    r.py, business_license, business_license_pic, food_allowance_license, food_allowance_license_pic, acreage, bank_address, 
+    bank_card_name, bank_card_no, apply_id,
+    (select count(1) from distributor b where b.parent_distributor_id = distributor.distributor_id) childNum,
+    (select c.name from distributor c where c.distributor_id = distributor.parent_distributor_id) parentDistributorName
+  </sql>
+
+  <select id="getDistributor" resultType="com.star.truffle.module.member.dto.res.DistributorResponseDto">
+    select
+    <include refid="sql_column" />
+    from distributor
+    inner join distribution_region r on r.region_id = distributor.region_id
+    INNER JOIN sys_area p on p.areaId = r.province_id
+    LEFT JOIN sys_area c on c.areaId = r.city_id
+    LEFT JOIN sys_area a on a.areaId = r.area_id
+    LEFT JOIN sys_area t on t.areaId = r.town_id
+    where distributor_id = #{distributorId}
+  </select>
+
+</mapper>

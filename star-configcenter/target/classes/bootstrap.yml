@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: star-configcenter
+  profiles:
+    active: git
+  
+server:
+  port: 1112
+  servlet:
+    context-path: 
+
+eureka:
+  instance:
+    #prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+    hostname: 47.105.38.227
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://47.105.38.227:1111/eureka/
