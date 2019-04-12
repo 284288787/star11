@@ -65,7 +65,7 @@ public class ClassUtils {
     try {
       Class<?> clazz = Class.forName(arg[0]);
       Method method = clazz.getMethod(arg[1]);
-      result = method.invoke(clazz.newInstance());
+      result = method.invoke(clazz.getDeclaredConstructor().newInstance());
     } catch (InstantiationException e) {
       e.printStackTrace();
     } catch (IllegalAccessException e) {

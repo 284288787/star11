@@ -2,6 +2,7 @@
 package com.star.truffle.common.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class ChooseController {
   
   @ResponseBody
   @RequestMapping(value = "/dialogData", method = {RequestMethod.POST, RequestMethod.GET})
-  public GridPagerResponse dialog(HttpServletRequest request, Model model) throws InstantiationException, IllegalAccessException {
+  public GridPagerResponse dialog(HttpServletRequest request, Model model) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
     ParamHandler paramHandler = ParamHandler.ofRequest(request, starJson);
     GridPagerRequest gpr = paramHandler.getDTO(GridPagerRequest.class);
     GridPagerResponse nodes = new GridPagerResponse();

@@ -232,7 +232,7 @@ public class DefaultAcsClient implements IAcsClient {
         T response = null;
         String stringContent = getResponseContent(httpResponse);
         try {
-            response = clasz.newInstance();
+            response = clasz.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new ClientException("SDK.InvalidResponseClass", "Unable to allocate " + clasz.getName() + " class");
         }

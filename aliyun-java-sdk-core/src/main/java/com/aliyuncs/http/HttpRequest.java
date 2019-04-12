@@ -21,10 +21,9 @@ package com.aliyuncs.http;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collections;
 import java.util.Map.Entry;
 
 import com.aliyuncs.utils.ParameterHelper;

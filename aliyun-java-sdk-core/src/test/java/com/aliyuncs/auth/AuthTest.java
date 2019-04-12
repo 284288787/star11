@@ -18,9 +18,9 @@
  */
 package com.aliyuncs.auth;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import java.net.Authenticator.RequestorType;
 import java.security.InvalidKeyException;
 import java.util.Map;
 
@@ -31,7 +31,6 @@ import com.aliyuncs.RoaAcsRequest;
 import com.aliyuncs.ecs.v20140526.model.DescribeRegionsRequest;
 import com.aliyuncs.ecs.v20140526.model.GetRegionsRequest;
 import com.aliyuncs.http.FormatType;
-import com.aliyuncs.regions.Endpoint;
 
 public class AuthTest {
 

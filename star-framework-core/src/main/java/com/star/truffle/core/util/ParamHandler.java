@@ -1,6 +1,7 @@
 /** create by liuhua at 2016年5月23日 下午1:43:07 **/
 package com.star.truffle.core.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -189,11 +190,15 @@ public class ParamHandler {
    * @param classOfT
    * @throws IllegalAccessException 
    * @throws InstantiationException 
+ * @throws SecurityException 
+ * @throws NoSuchMethodException 
+ * @throws InvocationTargetException 
+ * @throws IllegalArgumentException 
    */
-  public <T> T getDTO(Class<T> classOfT) throws InstantiationException, IllegalAccessException {
+  public <T> T getDTO(Class<T> classOfT) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
     T t = starJson.str2obj(starJson.obj2string(map), classOfT);
     if (null == t) {
-      t = classOfT.newInstance();
+      t = classOfT.getDeclaredConstructor().newInstance();
     }
     return t;
   }
