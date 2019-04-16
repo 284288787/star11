@@ -10,7 +10,7 @@ public class CouponRelation {
 
   // ID
   private Long id;
-  // 业务类型
+  // 业务类型 CouponBusinessTypeEnum
   private Integer businessType;
   // 业务ID
   private Long businessId;

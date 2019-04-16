@@ -5,7 +5,7 @@
   </resultMap>
 
   <sql id="sql_column">
-    coupon_id, title, card_id, description, card_type, deleted, enabled, create_time
+    coupon_id, title, card_id, description, card_type, deleted, enabled, create_time, view, view_dialog, view_home
   </sql>
 
   <sql id="sql_where">
@@ -18,6 +18,15 @@
       </if>
       <if test="enabled != null">
         and enabled = #{enabled}
+      </if>
+      <if test="view != null">
+        and view = #{view}
+      </if>
+      <if test="view_dialog != null">
+        and view_dialog = #{viewDialog}
+      </if>
+      <if test="view_home != null">
+        and view_home = #{viewHome}
       </if>
       <if test="cardId != null and cardId != ''">
         and card_id = #{cardId}

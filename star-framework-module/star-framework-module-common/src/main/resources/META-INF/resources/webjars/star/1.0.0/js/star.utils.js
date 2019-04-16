@@ -47,7 +47,14 @@ function UtilsHandle(options, funcs){
       });
     }
   }
-	
+	handle.addChooses = function(cfgs){
+		cfgs.forEach(function(cfg){
+			cfg.object.unbind().click(function(){
+				handle.choose(cfg);
+			})
+		})
+		
+	}
 	handle.addUploadImages = function(uf){
 		if(options.uploadImages){
 			var l = options.uploadImages.items.length;

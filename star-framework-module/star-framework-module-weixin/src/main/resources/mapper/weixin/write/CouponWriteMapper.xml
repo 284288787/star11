@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.star.truffle.module.weixin.dao.write.CouponWriteDao">
   <insert id="saveCoupon" useGeneratedKeys="true" keyProperty="couponId" parameterType="com.star.truffle.module.weixin.domain.Coupon">
-    insert into coupon(coupon_id, title, card_id, description, card_type, deleted, enabled, create_time)
-    values(#{couponId}, #{title}, #{cardId}, #{description}, #{cardType}, #{deleted}, #{enabled}, #{createTime})
+    insert into coupon(coupon_id, title, card_id, description, card_type, deleted, enabled, create_time, view, view_dialog, view_home)
+    values(#{couponId}, #{title}, #{cardId}, #{description}, #{cardType}, #{deleted}, #{enabled}, #{createTime}, #{view}, #{viewDialog}, #{viewHome})
   </insert>
 
   <insert id="batchSaveCoupon" parameterType="java.util.List">
-    insert into coupon(coupon_id, title, card_id, description, card_type, deleted, enabled, create_time)
+    insert into coupon(coupon_id, title, card_id, description, card_type, deleted, enabled, create_time, view, view_dialog, view_home)
     values
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.couponId}, #{item.title}, #{item.cardId}, #{item.description}, #{item.cardType}, #{item.deleted}, #{item.enabled}, #{item.createTime})
+      (#{item.couponId}, #{item.title}, #{item.cardId}, #{item.description}, #{item.cardType}, #{item.deleted}, #{item.enabled}, #{item.createTime}, #{item.view}, #{item.viewDialog}, #{item.viewHome})
     </foreach>
   </insert>
 
@@ -23,6 +23,9 @@
       <if test="cardType != null and cardType != ''">card_type = #{cardType},</if>
       <if test="deleted != null">deleted = #{deleted},</if>
       <if test="enabled != null">enabled = #{enabled},</if>
+      <if test="view != null">view = #{view},</if>
+      <if test="viewDialog != null">view_dialog = #{viewDialog},</if>
+      <if test="viewHome != null">view_home = #{viewHome},</if>
     </trim>
     where coupon_id = #{couponId}
   </update>
@@ -35,7 +38,7 @@
   </resultMap>
 
   <sql id="sql_column">
-    coupon_id, title, card_id, description, card_type, deleted, enabled, create_time
+    coupon_id, title, card_id, description, card_type, deleted, enabled, create_time, view, view_dialog, view_home
   </sql>
 
   <select id="getCoupon" resultType="com.star.truffle.module.weixin.dto.res.CouponResponseDto">

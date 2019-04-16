@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.star.truffle.common.constants.DeletedEnum;
 import com.star.truffle.core.StarServiceException;
 import com.star.truffle.core.jdbc.Page;
 import com.star.truffle.core.jdbc.Page.OrderType;
@@ -52,6 +53,7 @@ public class CouponController {
   public Map<String, Object> list(CouponRequestDto couponRequestDto, Integer page, Integer rows, String sord, String sidx) {
     Page pager = new Page(page, rows, sidx, OrderType.desc.name().equals(sord) ? OrderType.desc : OrderType.asc);
     couponRequestDto.setPager(pager);
+    couponRequestDto.setDeleted(DeletedEnum.notdelete.val());
     List<CouponResponseDto> list = couponService.queryCoupon(couponRequestDto);
     Long count = couponService.queryCouponCount(couponRequestDto);
 
@@ -65,10 +67,10 @@ public class CouponController {
 
   @ResponseBody
   @RequestMapping(value = "/add", method = RequestMethod.POST)
-  public ApiResult<Long> add(@RequestBody Coupon coupon) {
+  public ApiResult<Void> add(@RequestBody Coupon coupon) {
     try {
-      Long id = couponService.saveCoupon(coupon);
-      return ApiResult.success(id);
+      couponService.saveCoupon(coupon);
+      return ApiResult.success();
     } catch (StarServiceException e) {
       return ApiResult.fail(e.getCode(), e.getMsg());
     } catch (Exception e) {

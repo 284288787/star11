@@ -6,7 +6,7 @@ var couponHandle = new ListHandle({
   formId: '#queryForm',
   entityName: '卡券',
   winWidth: '600px',
-  winHeight: '300px',
+  winHeight: '450px',
   primaryKey: 'couponId',
   urls:{
     list: basePath+'coupon/list',
@@ -18,13 +18,16 @@ var couponHandle = new ListHandle({
   }
 },{});
 $(function(){
-  var colNames = ['卡券ID', '卡券标题', '微信卡券Id', '创建日期', '操作'];
+  var colNames = ['卡券ID', '微信卡券Id', '卡券标题', '列表显示', '首页展示', '首页弹出', '创建日期', '操作'];
   var colModel = [
     {name: 'couponId', index: 'coupon_id', width: 50, align: "center", formatter: function(cellvalue, options, rowObject){
       return cellvalue.toFixed(0);
     }}, 
-    {name: 'title', index: 'title', width: 50, align: "center"}, 
-    {name: 'cardId', index: 'card_id', width: 50, align: "center"}, 
+    {name: 'cardId', index: 'card_id', width: 100, align: "center"}, 
+    {name: 'title', index: 'title', width: 150, align: "center"}, 
+    {name: 'view', index: 'view', width: 50, align: "center", formatter: 'select', editoptions: {value:'1:是;0:否'}}, 
+    {name: 'viewHome', index: 'view_home', width: 50, align: "center", formatter: 'select', editoptions: {value:'1:是;0:否'}}, 
+    {name: 'viewDialog', index: 'view_dialog', width: 50, align: "center", formatter: 'select', editoptions: {value:'1:是;0:否'}}, 
     {name: 'createTime', index: 'create_time', width: 50, align: "center", formatter:'date', formatoptions: {newformat:'Y-m-d'}}, 
     {align: "center", editable: false, sortable: false, formatter: function(cellvalue, options, rowObject){
       var temp = '';

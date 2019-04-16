@@ -34,4 +34,10 @@ public class Coupon {
   private Integer deleted;
   // 创建日期
   private Date createTime;
+  // 列表是否显示 1是 0否 为1下面2项才生效
+  private Integer view;
+  // 首页是否弹出显示 1是 0否
+  private Integer viewDialog;
+  // 首页是否显示 1是 0否
+  private Integer viewHome;
 }

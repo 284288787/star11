@@ -18,4 +18,6 @@ public interface CouponRelationWriteDao {
 
   public CouponRelationResponseDto getCouponRelation(Long id);
 
+  public int deleteCouponRelationByParam(CouponRelationRequestDto param);
+
 }

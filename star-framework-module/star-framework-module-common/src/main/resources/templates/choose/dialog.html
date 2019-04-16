@@ -177,14 +177,14 @@
           da.push(rowData);
         }
         if (opts) {
-          opts.callback(da);
+          opts.callback(da, opts.datas);
           art.dialog.close();
         }
       }else{
         var rowId=$('#grid-table').jqGrid('getGridParam','selrow'); //selarrrow
         var rowData = $('#grid-table').jqGrid('getRowData', rowId);
         if (opts) {
-          opts.callback(rowData);
+          opts.callback(rowData, opts.datas);
           art.dialog.close();
         }
       }
