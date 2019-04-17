@@ -9,4 +9,5 @@ import com.star.truffle.module.weixin.domain.CouponRelation;
 @Setter
 public class CouponRelationResponseDto extends CouponRelation {
 
+  private String title;
 }

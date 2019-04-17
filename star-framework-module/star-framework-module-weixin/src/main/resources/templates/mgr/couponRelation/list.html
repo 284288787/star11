@@ -20,20 +20,8 @@
   <div class="main-container data-container" id="main-container">
     <div class="search-container">
       <form id="queryForm">
-        <span>业务类型：
-          <select name="businessType">
-            <option value="">全部</option>
-            <option value="1">大分类</option>
-            <option value="2">商品分类</option>
-            <option value="3">商品</option>
-            <option value="4">会员</option>
-          </select>
-        </span> 
-        <span>业务ID：
-          <input type="text" name="businessId" placeholder="业务ID"/>
-        </span> 
-        <span>卡券ID：
-          <input type="text" name="couponId" placeholder="卡券ID"/>
+        <span>标题：
+          <input type="text" name="title" placeholder="标题"/>
         </span> 
         <span> 
           <a onclick="couponRelationHandle.query()" class="button blue">查询</a> 
@@ -42,9 +30,6 @@
       </form>
     </div>
     <div class="btnGroup">
-      <a star:authorize-uri="/couponRelation/add" onclick="couponRelationHandle.addNew()" class="button grey">新增</a>
-      <a star:authorize-uri="/couponRelation/enabled" onclick="couponRelationHandle.enabled()" class="button blue">启用</a>
-      <a star:authorize-uri="/couponRelation/disabled" onclick="couponRelationHandle.disabled()" class="button yellow">禁用</a>
       <a star:authorize-uri="/couponRelation/deleted" onclick="couponRelationHandle.remove()" class="button red">删除</a> 
     </div>
     <div class="data-container">
@@ -53,14 +38,8 @@
     </div>
   </div>
   <script type="text/javascript" th:src="@{/webjars/star/js/star.authorize.js}"></script>
-  <script type="text/javascript" th:inline="javascript" star:authorize-uri="/couponRelation/editBefore/*">
-  addAuthorize("couponRelation-editBefore", true);
-  </script>
-  <script type="text/javascript" th:inline="javascript" star:authorize-uri="/couponRelation/disabled">
-  addAuthorize("couponRelation-disabled", true);
-  </script>
-  <script type="text/javascript" th:inline="javascript" star:authorize-uri="/couponRelation/enabled">
-  addAuthorize("couponRelation-enabled", true);
+  <script type="text/javascript" th:inline="javascript" star:authorize-uri="/couponRelation/deleted">
+  addAuthorize("couponRelation-delete", true);
   </script>
   <script type="text/javascript" th:src="@{/webjars/star/js/star.list.comm.js}"></script>
   <script type="text/javascript" th:inline="javascript" th:src="@{/js/mgr/couponRelation/list.js}"></script>

@@ -14,4 +14,6 @@ public class CouponRelationRequestDto extends CouponRelation {
   private Page pager;
   
   private String couponIds;
+  
+  private String title;
 }

@@ -76,10 +76,21 @@ var productHandle = new ListHandle({
     var url = '/download/excel/data?params=';
     url+=encodeURI(JSON.stringify(params));
     window.open(url);
+  },
+  viewCoupons : function(businessId) {
+    artDialog.data("params", {"businessId": businessId, "businessType": 3});
+    artDialog.open(basePath+'couponRelation/lists', {
+        title : '查看优惠券',
+        width : "800px",
+        height : "500px",
+        drag : true,
+        resize : true,
+        lock : true
+    });
   }
 });
 $(function(){
-  new UtilsHandle({
+  var utilsHandle = new UtilsHandle({
     basePath: "/",
     choose: [
       {
@@ -117,8 +128,12 @@ $(function(){
   
   var colNames = ['操作', '主图', '商品大分类', '商品分类', '商品ID', '商品状态', '单买最大量', '商品标题', '副标题', '商品标签', '预售时间', '下架时间', '提货时间', '原价', '含税价', '未税价', '售价', '一级分销提成', '二级分销提成', '库存总量', '已售数量', '实时库存', '供应商', '供应商联系人', '供应商电话', '商品品牌', '商品规格', '商品产地', '关注人数', '更新日期', '更新人'];
   var colModel = [
-    {align: "center", width: '160px', editable: false, sortable: false, frozen: true, formatter: function(cellvalue, options, rowObject){
+    {align: "center", width: '300px', editable: false, sortable: false, frozen: true, formatter: function(cellvalue, options, rowObject){
       var temp = '';
+      if (hasAuthorize('couponRelation-set')) {
+        temp += '<a class="linetaga" href="javascript: productHandle.viewCoupons(\'' + rowObject.productId.toFixed(0) + '\');">查看优惠券</a>';
+        temp += '<a class="linetaga" href="javascript:///;" data-id="' + rowObject.productId.toFixed(0) + '">设置优惠券</a>';
+      }
       if(hasAuthorize('product-top')){
         temp += '<a class="linetaga" href="javascript: productHandle.top(\'' + rowObject.productId.toFixed(0) + '\');" >置顶</a>';
         temp += '<a class="linetaga" href="javascript: productHandle.up(\'' + rowObject.productId.toFixed(0) + '\');" >上移</a>';
@@ -230,7 +245,45 @@ $(function(){
   var rownumbers = true;
   var multiselect = true;
   var screenWidth = document.documentElement.clientWidth || document.body.clientWidth - 140;
-  var config={rowNum: 50, autowidth: false, dataType:'local', caption: "商品信息列表", colNames: colNames, colModel: colModel, rowList: rowList, rownumbers: rownumbers, multiselect: multiselect};
+  var config={rowNum: 50, autowidth: false, dataType:'local', caption: "商品信息列表", colNames: colNames, colModel: colModel, rowList: rowList, rownumbers: rownumbers, multiselect: multiselect, callback: function(){
+    var cfgs = new Array();
+    $("a[data-id]").each(function() {
+      cfgs.push({
+        object : $(this),
+        datas : {"businessId": $(this).attr("data-id")},
+        service : "couponService",
+        title : "设置优惠券",
+        width : "800px",
+        height : "500px",
+        multiselect : true,
+//        callback : function(coupon, datas) {
+        callback : function(coupons, datas) {
+          var couponIds = "";
+          coupons.forEach(function(coupon) {
+            couponIds += ","+coupon.couponId;
+          });
+          var params={"businessId": datas.businessId, "businessType": 3, "couponIds": couponIds.length > 0 ? couponIds.substring(1) : couponIds};
+//          var couponIds = coupon.couponId;
+//          var params={"businessId": datas.businessId, "businessType": 1, "couponIds": couponIds};
+          $.ajax({
+            contentType: "application/json",
+            url: basePath+'couponRelation/set',
+            data: JSON.stringify(params),
+            type: 'post',
+            dataType: 'json',
+            success: function(res){
+              if(res.code==0){
+                artDialog.alert("设置成功");
+              }else{
+                artDialog.alert(res.msg);
+              }
+            }
+          });
+        }
+      });
+    });
+    utilsHandle.addChooses(cfgs);
+  }};
   productHandle.init(config, {
     jsonReader: {
       repeatitems : false

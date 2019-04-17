@@ -15,24 +15,22 @@
     <form action="" id="editCouponForm">
       <input type="hidden" name="couponId" th:value="${couponResponseDto.couponId}">
       <table class="gy_table">
-        <tr>
-          <td><strong>卡券标题：</strong></td>
+      	<tr>
+          <td colspan="2"><strong>微信卡券Id：</strong></td>
         </tr>
         <tr>
-          <td>
-            <input type="text" name="title" placeholder="卡券标题" th:value="${couponResponseDto.title}">
+          <td colspan="2">
+            <input type="text" name="cardId" placeholder="微信卡券Id" class="ipt300" th:value="${couponResponseDto.cardId}" readonly>
           </td>
         </tr>
+        <tr><td width="90px"><strong>卡券标题：</strong></td><td id="titleTd" th:text="${couponResponseDto.title}">&nbsp;</td></tr>
+        <tr><td><strong>卡券类型：</strong></td><td id="cardTypeTd" th:text="${{'GROUPON':'团购券', 'CASH':'代金券', 'DISCOUNT':'折扣券', 'GIFT':'兑换券', 'GENERAL_COUPON':'优惠券'}[couponResponseDto.cardType]}">&nbsp;</td></tr>
+        <tr><td><strong>卡券描述：</strong></td><td id="descriptionTd" th:text="${couponResponseDto.description}">&nbsp;</td></tr>
+        <tr><td colspan="2"><strong>列表显示：</strong><input type="checkbox" name="view" th:checked="${couponResponseDto.view}"></td></tr>
+        <tr><td colspan="2"><strong>首页展示：</strong><input type="checkbox" name="viewHome" th:checked="${couponResponseDto.viewHome}"></td></tr>
+        <tr><td colspan="2"><strong>首页弹出：</strong><input type="checkbox" name="viewDialog" th:checked="${couponResponseDto.viewDialog}">若有多张优惠券设置了弹出，则取最新的一张</td></tr>
         <tr>
-          <td><strong>微信卡券Id：</strong></td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" name="cardId" placeholder="微信卡券Id" th:value="${couponResponseDto.cardId}">
-          </td>
-        </tr>
-        <tr>
-          <td>
+          <td colspan="2">
             <div class="btnGroup">
               <input type="button" value="保存" class="button blue" id="saveBtn"> <input type="button" value="关闭" class="button grey" onclick="art.dialog.close();">
             </div>

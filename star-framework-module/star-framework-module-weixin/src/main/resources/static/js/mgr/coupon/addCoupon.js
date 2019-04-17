@@ -32,20 +32,6 @@ $(function(){
       }
     });
   });
-  $("#editCouponForm").validate({
-    rules: {
-      title: {
-        required: true,
-        zhengze: ".{1,10}"
-      }
-    },
-    messages: {
-      title: {
-        required: "必填",
-        zhengze: "长度在1至10个字"
-      }
-    }
-  });
   
   $(":checkbox[name=view]").change(function(){
     if(! this.checked){

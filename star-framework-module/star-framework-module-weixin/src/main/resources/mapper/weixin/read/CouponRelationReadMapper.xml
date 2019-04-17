@@ -10,7 +10,7 @@
   </resultMap>
 
   <sql id="sql_column">
-    id, business_type, business_id, coupon_id, deleted
+    id, business_type, business_id, coupon_relation.coupon_id, coupon_relation.deleted, c.title
   </sql>
 
   <sql id="sql_where">
@@ -25,7 +25,13 @@
         and business_id = #{businessId}
       </if>
       <if test="couponId != null">
-        and coupon_id = #{couponId}
+        and coupon_relation.coupon_id = #{couponId}
+      </if>
+      <if test="deleted != null">
+        and coupon_relation.deleted = #{deleted}
+      </if>
+      <if test="title != null and title != ''">
+        and c.title like "%"#{title}"%"
       </if>
     </trim>
   </sql>
@@ -34,6 +40,7 @@
     select
     <include refid="sql_column" />
     from coupon_relation
+    LEFT JOIN coupon c on c.coupon_id = coupon_relation.coupon_id
     where id = #{id}
   </select>
 
@@ -41,6 +48,7 @@
     select
     <include refid="sql_column" />
     from coupon_relation
+    LEFT JOIN coupon c on c.coupon_id = coupon_relation.coupon_id
     <include refid="sql_where" />
     order by
     <choose>
@@ -60,6 +68,7 @@
     select
     count(1)
     from coupon_relation
+    LEFT JOIN coupon c on c.coupon_id = coupon_relation.coupon_id
     <include refid="sql_where" />
   </select>
 </mapper>

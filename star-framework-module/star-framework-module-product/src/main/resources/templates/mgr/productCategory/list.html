@@ -50,7 +50,11 @@
   <script type="text/javascript" th:inline="javascript" star:authorize-uri="/productCategory/enabled">
   addAuthorize("productCategory-enabled", true);
   </script>
+  <script type="text/javascript" th:inline="javascript" star:authorize-uri="/couponRelation/set">
+  addAuthorize("couponRelation-set", true);
+  </script>
   <script type="text/javascript" th:src="@{/webjars/star/js/star.list.comm.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/star/js/star.utils.js}"></script>
   <script type="text/javascript" th:inline="javascript" th:src="@{/js/mgr/productCategory/list.js}"></script>
 </body>
 </html>

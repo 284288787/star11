@@ -63,4 +63,25 @@ public class CouponRelationService {
     }
   }
 
+  public List<CouponRelationResponseDto> queryCouponRelation(CouponRelationRequestDto couponRelationRequestDto) {
+    return this.couponRelationCache.queryCouponRelation(couponRelationRequestDto);
+  }
+
+  public Long queryCouponRelationCount(CouponRelationRequestDto couponRelationRequestDto) {
+    return this.couponRelationCache.queryCouponRelationCount(couponRelationRequestDto);
+  }
+
+  public void deleteCouponRelation(String idstr) {
+    if (StringUtils.isBlank(idstr)) {
+      throw new StarServiceException(ApiCode.PARAM_ERROR);
+    }
+    String[] ids = idstr.split(",");
+    for (String str : ids) {
+      Long id = Long.parseLong(str);
+      CouponRelationRequestDto dto = new CouponRelationRequestDto();
+      dto.setId(id);
+      dto.setDeleted(1);
+      this.couponRelationCache.updateCouponRelation(dto);
+    }
+  }
 }

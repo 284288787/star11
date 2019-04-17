@@ -109,6 +109,7 @@ public class CouponService implements ChooseDataIntf {
   @Override
   public GridPagerResponse getDatas(Map<String, Object> condition, Page pager) {
     CouponRequestDto couponRequestDto = starJson.str2obj(starJson.obj2string(condition), CouponRequestDto.class);
+    couponRequestDto.setDeleted(0);
     couponRequestDto.setPager(pager);
     Long count = couponCache.queryCouponCount(couponRequestDto);
     List<CouponResponseDto> list = new ArrayList<>();

@@ -1,39 +1,23 @@
 var basePath="/";
 var parentParams=artDialog.data('params');
 $(function(){
-  $("#editCouponForm").validate({
-    rules: {
-      title: {
-        required: true,
-        zhengze: ".*{1,10}"
-      },
-      cardId: {
-        required: true,
-        zhengze: ".*{20,40}"
-      }
-    },
-    messages: {
-      title: {
-        required: "必填",
-        zhengze: "长度在1至10个字"
-      },
-      cardId: {
-        required: "必填",
-        zhengze: "长度在20至40个字符"
-      }
+  $(":checkbox[name=view]").change(function(){
+    if(! this.checked){
+      $(":checkbox[name=viewHome]")[0].checked = false;
+      $(":checkbox[name=viewDialog]")[0].checked = false;
     }
   });
-  
+  $(":checkbox[name=viewHome],:checkbox[name=viewDialog]").change(function(){
+    if(this.checked){
+      $(":checkbox[name=view]")[0].checked = true;
+    }
+  });
   $("#saveBtn").click(function(){
-    var flag = $("#editCouponForm").valid();
-    if(! flag) return;
-    var data=$("#editCouponForm").serializeArray();
-    var params = {};
-    $.each(data, function(i, field){
-      var name = field.name;
-      params[name] = field.value;
-      console.log(name + "  " + field.value)
-    });
+    var couponId = $(":hidden[name=couponId]").val();
+    var view = $(":checkbox[name=view]")[0].checked ? 1 : 0;
+    var viewDialog = $(":checkbox[name=viewDialog]")[0].checked ? 1 : 0;
+    var viewHome = $(":checkbox[name=viewHome]")[0].checked ? 1 : 0;
+    var params = {"couponId": couponId, "view": view, "viewDialog": viewDialog, "viewHome": viewHome};
     $("#saveBtn").attr("disabled", true);
     $.ajax({
       contentType: "application/json",

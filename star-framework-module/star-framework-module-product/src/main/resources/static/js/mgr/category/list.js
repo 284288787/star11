@@ -18,7 +18,15 @@ var categoryHandle = new ListHandle({
   }
 }, {
   viewCoupons : function(businessId) {
-    
+    artDialog.data("params", {"businessId": businessId, "businessType": 1});
+    artDialog.open(basePath+'couponRelation/lists', {
+        title : '查看优惠券',
+        width : "800px",
+        height : "500px",
+        drag : true,
+        resize : true,
+        lock : true
+    });
   }
 });
 var utilsHandle = new UtilsHandle({
@@ -88,12 +96,15 @@ $(function() {
           width : "800px",
           height : "500px",
           multiselect : true,
+//          callback : function(coupon, datas) {
           callback : function(coupons, datas) {
             var couponIds = "";
             coupons.forEach(function(coupon) {
               couponIds += ","+coupon.couponId;
             });
             var params={"businessId": datas.businessId, "businessType": 1, "couponIds": couponIds.length > 0 ? couponIds.substring(1) : couponIds};
+//            var couponIds = coupon.couponId;
+//            var params={"businessId": datas.businessId, "businessType": 1, "couponIds": couponIds};
             $.ajax({
               contentType: "application/json",
               url: basePath+'couponRelation/set',
