@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.star.truffle.module.weixin.dao.write.CouponRelationWriteDao">
-  <insert id="saveCouponRelation" useGeneratedKeys="true" keyProperty="id" parameterType="com.star.truffle.module.weixin.domain.CouponRelation">
+<mapper namespace="com.star.truffle.module.product.dao.write.CouponRelationWriteDao">
+  <insert id="saveCouponRelation" useGeneratedKeys="true" keyProperty="id" parameterType="com.star.truffle.module.product.domain.CouponRelation">
     insert into coupon_relation(id, business_type, business_id, coupon_id, deleted)
     values(#{id}, #{businessType}, #{businessId}, #{couponId}, #{deleted})
   </insert>
@@ -14,7 +14,7 @@
     </foreach>
   </insert>
 
-  <update id="updateCouponRelation" parameterType="com.star.truffle.module.weixin.dto.req.CouponRelationRequestDto">
+  <update id="updateCouponRelation" parameterType="com.star.truffle.module.product.dto.req.CouponRelationRequestDto">
     update coupon_relation
     <trim prefix="set" suffixOverrides=",">
       <if test="businessType != null">business_type = #{businessType},</if>
@@ -29,23 +29,15 @@
     delete from coupon_relation where id = #{id}
   </delete>
 
-  <update id="deleteCouponRelationByParam" parameterType="com.star.truffle.module.weixin.dto.req.CouponRelationRequestDto">
+  <update id="deleteCouponRelationByParam" parameterType="com.star.truffle.module.product.dto.req.CouponRelationRequestDto">
     update coupon_relation set deleted = 1 where business_type = #{businessType} and business_id = #{businessId}
   </update>
-
-  <resultMap id="couponRelationResponseDtoResultMap" type="com.star.truffle.module.weixin.dto.res.CouponRelationResponseDto">
-    <result column="id" property="id" />
-    <result column="business_type" property="businessType" />
-    <result column="business_id" property="businessId" />
-    <result column="coupon_id" property="couponId" />
-    <result column="deleted" property="deleted" />
-  </resultMap>
 
   <sql id="sql_column">
     id, business_type, business_id, coupon_id, deleted
   </sql>
 
-  <select id="getCouponRelation" resultType="com.star.truffle.module.weixin.dto.res.CouponRelationResponseDto">
+  <select id="getCouponRelation" resultType="com.star.truffle.module.product.dto.res.CouponRelationResponseDto">
     select
     <include refid="sql_column" />
     from coupon_relation
