@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月25日 14:18:36**/
-package com.star.truffle.module.weixin.cache;
+package com.star.truffle.module.coupon.cache;
 
 import java.util.List;
 import java.util.Map;
@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.star.truffle.core.jackson.StarJson;
-import com.star.truffle.module.weixin.dao.QuanDao;
-import com.star.truffle.module.weixin.dao.read.CouponReadDao;
-import com.star.truffle.module.weixin.dao.write.CouponWriteDao;
-import com.star.truffle.module.weixin.domain.Coupon;
-import com.star.truffle.module.weixin.dto.card.res.CardDetail;
-import com.star.truffle.module.weixin.dto.req.CouponRequestDto;
-import com.star.truffle.module.weixin.dto.res.CouponResponseDto;
+import com.star.truffle.module.coupon.dao.read.CouponReadDao;
+import com.star.truffle.module.coupon.dao.write.CouponWriteDao;
+import com.star.truffle.module.coupon.domain.Coupon;
+import com.star.truffle.module.coupon.dto.req.CouponRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponResponseDto;
 
 @Service
 public class CouponCache {
@@ -25,10 +23,8 @@ public class CouponCache {
   private CouponWriteDao couponWriteDao;
   @Autowired
   private CouponReadDao couponReadDao;
-  @Autowired
-  private QuanDao quanDao;
 
-//  @CachePut(value = "module-weixin-coupon", key = "'coupon_couponId_'+#result.couponId", condition = "#result != null and #result.couponId != null")
+  //  @CachePut(value = "module-weixin-coupon", key = "'coupon_couponId_'+#result.couponId", condition = "#result != null and #result.couponId != null")
   public CouponResponseDto saveCoupon(Coupon coupon){
     this.couponWriteDao.saveCoupon(coupon);
     CouponResponseDto couponResponseDto = this.couponWriteDao.getCoupon(coupon.getCouponId());
@@ -61,10 +57,6 @@ public class CouponCache {
   public Long queryCouponCount(CouponRequestDto couponRequestDto){
     Map<String, Object> conditions = starJson.bean2Map(couponRequestDto);
     return this.couponReadDao.queryCouponCount(conditions);
-  }
-
-  public CardDetail getWxCardInfo(String cardId) {
-    return quanDao.getCardDetail(cardId);
   }
 
 }

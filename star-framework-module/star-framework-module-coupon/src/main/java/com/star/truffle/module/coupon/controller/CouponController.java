@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月25日 14:18:36**/
-package com.star.truffle.module.weixin.controller;
+package com.star.truffle.module.coupon.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +20,10 @@ import com.star.truffle.core.jdbc.Page;
 import com.star.truffle.core.jdbc.Page.OrderType;
 import com.star.truffle.core.web.ApiCode;
 import com.star.truffle.core.web.ApiResult;
-import com.star.truffle.module.weixin.domain.Coupon;
-import com.star.truffle.module.weixin.dto.card.res.CardDetail;
-import com.star.truffle.module.weixin.dto.req.CouponRequestDto;
-import com.star.truffle.module.weixin.dto.res.CouponResponseDto;
-import com.star.truffle.module.weixin.service.CouponService;
+import com.star.truffle.module.coupon.domain.Coupon;
+import com.star.truffle.module.coupon.dto.req.CouponRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponResponseDto;
+import com.star.truffle.module.coupon.service.CouponService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -99,20 +98,6 @@ public class CouponController {
     try {
       couponService.deleteCoupon(ids);
       return ApiResult.success();
-    } catch (StarServiceException e) {
-      return ApiResult.fail(e.getCode(), e.getMsg());
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return ApiResult.fail(ApiCode.SYSTEM_ERROR);
-    }
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/getWxCardInfo", method = RequestMethod.POST)
-  public ApiResult<CardDetail> getWxCardInfo(String cardId) {
-    try {
-      CardDetail cardDetail = couponService.getWxCardInfo(cardId);
-      return ApiResult.success(cardDetail);
     } catch (StarServiceException e) {
       return ApiResult.fail(e.getCode(), e.getMsg());
     } catch (Exception e) {

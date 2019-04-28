@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月25日 14:18:36**/
-package com.star.truffle.module.weixin.domain;
+package com.star.truffle.module.coupon.domain;
 
 import java.util.Date;
 

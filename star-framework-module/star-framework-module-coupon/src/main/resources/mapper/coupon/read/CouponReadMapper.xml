@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.star.truffle.module.weixin.dao.read.CouponReadDao">
-  <resultMap id="couponResponseDtoResultMap" type="com.star.truffle.module.weixin.dto.res.CouponResponseDto">
+<mapper namespace="com.star.truffle.module.coupon.dao.read.CouponReadDao">
+  <resultMap id="couponResponseDtoResultMap" type="com.star.truffle.module.coupon.dto.res.CouponResponseDto">
   </resultMap>
 
   <sql id="sql_column">
@@ -40,7 +40,7 @@
     </trim>
   </sql>
 
-  <select id="getCoupon" resultType="com.star.truffle.module.weixin.dto.res.CouponResponseDto">
+  <select id="getCoupon" resultType="com.star.truffle.module.coupon.dto.res.CouponResponseDto">
     select
     <include refid="sql_column" />
     from coupon

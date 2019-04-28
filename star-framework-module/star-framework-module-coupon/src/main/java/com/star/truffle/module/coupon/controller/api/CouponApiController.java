@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月25日 14:18:36**/
-package com.star.truffle.module.weixin.controller.api;
+package com.star.truffle.module.coupon.controller.api;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.star.truffle.core.StarServiceException;
 import com.star.truffle.core.web.ApiCode;
 import com.star.truffle.core.web.ApiResult;
-import com.star.truffle.module.weixin.dto.req.CouponRequestDto;
-import com.star.truffle.module.weixin.dto.res.CouponResponseDto;
-import com.star.truffle.module.weixin.service.CouponService;
+import com.star.truffle.module.coupon.dto.req.CouponRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponResponseDto;
+import com.star.truffle.module.coupon.service.CouponService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

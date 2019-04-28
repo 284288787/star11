@@ -60,6 +60,11 @@
       <artifactId>star-framework-module-order</artifactId>
       <version>${star.module.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.star.truffle</groupId>
+      <artifactId>star-framework-module-coupon</artifactId>
+      <version>${star.module.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

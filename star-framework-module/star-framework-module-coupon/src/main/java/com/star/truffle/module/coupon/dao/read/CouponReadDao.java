@@ -1,9 +1,10 @@
 /**create by framework at 2019年03月25日 14:18:36**/
-package com.star.truffle.module.weixin.dao.read;
+package com.star.truffle.module.coupon.dao.read;
 
 import java.util.List;
 import java.util.Map;
-import com.star.truffle.module.weixin.dto.res.CouponResponseDto;
+
+import com.star.truffle.module.coupon.dto.res.CouponResponseDto;
 
 public interface CouponReadDao {
 

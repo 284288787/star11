@@ -1,10 +1,11 @@
 /**create by framework at 2019年03月25日 14:18:36**/
-package com.star.truffle.module.weixin.dao.write;
+package com.star.truffle.module.coupon.dao.write;
 
 import java.util.List;
-import com.star.truffle.module.weixin.domain.Coupon;
-import com.star.truffle.module.weixin.dto.req.CouponRequestDto;
-import com.star.truffle.module.weixin.dto.res.CouponResponseDto;
+
+import com.star.truffle.module.coupon.domain.Coupon;
+import com.star.truffle.module.coupon.dto.req.CouponRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponResponseDto;
 
 public interface CouponWriteDao {
 

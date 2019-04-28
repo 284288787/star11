@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月25日 14:18:36**/
-package com.star.truffle.module.weixin.service;
+package com.star.truffle.module.coupon.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,11 +19,10 @@ import com.star.truffle.core.StarServiceException;
 import com.star.truffle.core.jackson.StarJson;
 import com.star.truffle.core.jdbc.Page;
 import com.star.truffle.core.web.ApiCode;
-import com.star.truffle.module.weixin.cache.CouponCache;
-import com.star.truffle.module.weixin.domain.Coupon;
-import com.star.truffle.module.weixin.dto.card.res.CardDetail;
-import com.star.truffle.module.weixin.dto.req.CouponRequestDto;
-import com.star.truffle.module.weixin.dto.res.CouponResponseDto;
+import com.star.truffle.module.coupon.cache.CouponCache;
+import com.star.truffle.module.coupon.domain.Coupon;
+import com.star.truffle.module.coupon.dto.req.CouponRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponResponseDto;
 
 @Service
 public class CouponService implements ChooseDataIntf {
@@ -100,10 +99,6 @@ public class CouponService implements ChooseDataIntf {
 
   public Long queryCouponCount(CouponRequestDto couponRequestDto) {
     return this.couponCache.queryCouponCount(couponRequestDto);
-  }
-
-  public CardDetail getWxCardInfo(String cardId) {
-    return couponCache.getWxCardInfo(cardId);
   }
 
   @Override
