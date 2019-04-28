@@ -24,6 +24,7 @@
 		<module>star-framework-module-common</module>
 		<module>star-framework-module-user</module>
 		<module>star-framework-module-weixin</module>
+		<module>star-framework-module-coupon</module>
 	</modules>
 
 	<build>

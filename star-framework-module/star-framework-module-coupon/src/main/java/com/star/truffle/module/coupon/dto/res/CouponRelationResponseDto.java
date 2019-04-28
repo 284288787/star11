@@ -1,7 +1,7 @@
 /**create by framework at 2019年03月30日 10:29:30**/
-package com.star.truffle.module.product.dto.res;
+package com.star.truffle.module.coupon.dto.res;
 
-import com.star.truffle.module.product.domain.CouponRelation;
+import com.star.truffle.module.coupon.domain.CouponRelation;
 
 import lombok.Getter;
 import lombok.Setter;

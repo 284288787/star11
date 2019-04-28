@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月30日 10:29:30**/
-package com.star.truffle.module.product.domain;
+package com.star.truffle.module.coupon.domain;
 
 import lombok.Getter;
 import lombok.Setter;

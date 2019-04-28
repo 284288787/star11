@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月30日 10:29:30**/
-package com.star.truffle.module.product.cache;
+package com.star.truffle.module.coupon.cache;
 
 import java.util.List;
 import java.util.Map;
@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.star.truffle.core.jackson.StarJson;
-import com.star.truffle.module.product.dao.read.CouponRelationReadDao;
-import com.star.truffle.module.product.dao.write.CouponRelationWriteDao;
-import com.star.truffle.module.product.domain.CouponRelation;
-import com.star.truffle.module.product.dto.req.CouponRelationRequestDto;
-import com.star.truffle.module.product.dto.res.CouponRelationResponseDto;
+import com.star.truffle.module.coupon.dao.read.CouponRelationReadDao;
+import com.star.truffle.module.coupon.dao.write.CouponRelationWriteDao;
+import com.star.truffle.module.coupon.domain.CouponRelation;
+import com.star.truffle.module.coupon.dto.req.CouponRelationRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
 
 @Service
 public class CouponRelationCache {

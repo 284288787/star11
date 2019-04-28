@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月30日 10:29:30**/
-package com.star.truffle.module.product.service;
+package com.star.truffle.module.coupon.service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import com.star.truffle.common.constants.DeletedEnum;
 import com.star.truffle.core.StarServiceException;
 import com.star.truffle.core.web.ApiCode;
-import com.star.truffle.module.product.cache.CouponRelationCache;
-import com.star.truffle.module.product.domain.CouponRelation;
-import com.star.truffle.module.product.dto.req.CouponRelationRequestDto;
-import com.star.truffle.module.product.dto.res.CouponRelationResponseDto;
+import com.star.truffle.module.coupon.cache.CouponRelationCache;
+import com.star.truffle.module.coupon.domain.CouponRelation;
+import com.star.truffle.module.coupon.dto.req.CouponRelationRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
 
 @Service
 public class CouponRelationService {

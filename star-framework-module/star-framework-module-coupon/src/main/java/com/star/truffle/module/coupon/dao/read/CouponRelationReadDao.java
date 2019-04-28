@@ -1,10 +1,10 @@
 /**create by framework at 2019年03月30日 10:29:30**/
-package com.star.truffle.module.product.dao.read;
+package com.star.truffle.module.coupon.dao.read;
 
 import java.util.List;
 import java.util.Map;
 
-import com.star.truffle.module.product.dto.res.CouponRelationResponseDto;
+import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
 
 public interface CouponRelationReadDao {
 

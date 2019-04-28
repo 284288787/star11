@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月30日 10:29:30**/
-package com.star.truffle.module.product.controller;
+package com.star.truffle.module.coupon.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +18,9 @@ import com.star.truffle.core.jdbc.Page;
 import com.star.truffle.core.jdbc.Page.OrderType;
 import com.star.truffle.core.web.ApiCode;
 import com.star.truffle.core.web.ApiResult;
-import com.star.truffle.module.product.dto.req.CouponRelationRequestDto;
-import com.star.truffle.module.product.dto.res.CouponRelationResponseDto;
-import com.star.truffle.module.product.service.CouponRelationService;
+import com.star.truffle.module.coupon.dto.req.CouponRelationRequestDto;
+import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
+import com.star.truffle.module.coupon.service.CouponRelationService;
 
 import lombok.extern.slf4j.Slf4j;
 

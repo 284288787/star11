@@ -6,7 +6,7 @@ import com.star.truffle.module.build.dto.Project;
 public class RunProject {
   
   public static void main(String[] args) {
-    Project project = new Project("D:/work/git-star/star/star-framework-module", "D:/work/git-star/star/star-framework-module", "alibaba", 12354, "0.0.4-MODULE");
+    Project project = new Project("D:/work/git-star/star11/star-framework-module", "D:/work/git-star/star11/star-framework-module", "coupon", 12356, "0.0.5-MODULE");
     ProjectService projectService = new ProjectService();
     projectService.buildProject(project);
   }

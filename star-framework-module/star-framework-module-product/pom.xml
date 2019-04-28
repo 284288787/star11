@@ -74,6 +74,12 @@
     </dependency>
     <dependency>
       <groupId>com.star.truffle</groupId>
+      <artifactId>star-framework-module-coupon</artifactId>
+      <version>0.0.5-MODULE</version>
+      <!-- <scope>provided</scope> -->
+    </dependency>
+    <dependency>
+      <groupId>com.star.truffle</groupId>
       <artifactId>star-framework-module-member</artifactId>
       <version>0.0.5-MODULE</version>
       <exclusions>

@@ -5,10 +5,10 @@
   <parent>
     <artifactId>star-framework-module</artifactId>
     <groupId>com.star.truffle</groupId>
-    <version>{frameworkVersion}</version>
+    <version>0.0.5-MODULE</version>
   </parent>
 
-  <artifactId>{projectName}</artifactId>
+  <artifactId>star-framework-module-coupon</artifactId>
 
   <properties>
     <main.basedir>${basedir}/../..</main.basedir>
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.star.truffle</groupId>
       <artifactId>star-framework-module-common</artifactId>
-      <version>{frameworkVersion}</version>
+      <version>0.0.5-MODULE</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
