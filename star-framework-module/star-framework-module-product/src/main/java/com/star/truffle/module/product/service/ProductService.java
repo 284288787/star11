@@ -17,6 +17,8 @@ import com.star.truffle.core.StarServiceException;
 import com.star.truffle.core.jdbc.Page;
 import com.star.truffle.core.jdbc.Page.OrderType;
 import com.star.truffle.core.web.ApiCode;
+import com.star.truffle.module.coupon.cache.CouponRelationCache;
+import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
 import com.star.truffle.module.product.cache.CategoryProdcutRelationCache;
 import com.star.truffle.module.product.cache.ProductCache;
 import com.star.truffle.module.product.cache.ProductInventoryCache;
@@ -41,7 +43,9 @@ public class ProductService {
   private ProductPictureCache productPictureCache;
   @Autowired
   private CategoryProdcutRelationCache categoryProdcutRelationCache;
-
+  @Autowired
+  private CouponRelationCache couponRelationCache;
+  
   public Long saveProduct(ProductRequestDto product) {
     if (null == product || ! product.checkSaveData()) {
       throw new StarServiceException(ApiCode.PARAM_ERROR);
@@ -150,7 +154,24 @@ public class ProductService {
     categoryProdcutRelationCache.deleteCategoryProdcutRelationByProductId(productId);
     categoryProdcutRelationCache.batchSaveCategoryProdcutRelation(categoryProdcutRelations);
   }
+  
+  public List<CouponRelationResponseDto> getProductCoupons(Long productId, Long userId){
+    if(null != productId) {
+      ProductResponseDto productResponseDto = this.productCache.getProduct(productId);
+      List<CouponRelationResponseDto> coupons = getProductCoupons(productResponseDto, userId);
+      return coupons;
+    }
+    return null;
+  }
 
+  public List<CouponRelationResponseDto> getProductCoupons(ProductResponseDto product, Long userId){
+    if(null != product) {
+      List<CouponRelationResponseDto> coupons = couponRelationCache.getCouponsByProduct(product.getCateIds(), product.getProductCateId(), product.getProductId(), userId);
+      return coupons;
+    }
+    return null;
+  }
+  
   public ProductResponseDto getProduct(Long productId) {
     ProductResponseDto productResponseDto = this.productCache.getProduct(productId);
     if (null != productResponseDto) {

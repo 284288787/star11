@@ -11,4 +11,10 @@ import lombok.Setter;
 public class CouponRelationResponseDto extends CouponRelation {
 
   private String title;
+//微信卡券Id
+  private String cardId;
+//卡券描述
+  private String description;
+// 卡券类型 CardTypeEnum 
+  private String cardType;
 }

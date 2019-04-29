@@ -10,7 +10,7 @@
   </resultMap>
 
   <sql id="sql_column">
-    id, business_type, business_id, coupon_relation.coupon_id, coupon_relation.deleted, c.title
+    id, business_type, business_id, coupon_relation.coupon_id, coupon_relation.deleted, c.title, c.card_id, c.`description`, c.card_type
   </sql>
 
   <sql id="sql_where">
@@ -32,6 +32,15 @@
       </if>
       <if test="title != null and title != ''">
         and c.title like "%"#{title}"%"
+      </if>
+      <if test="couponView != null">
+        and c.view = #{view}
+      </if>
+      <if test="viewDialog != null">
+        and c.view_dialog = #{viewDialog}
+      </if>
+      <if test="viewHome != null">
+        and c.view_home = #{viewHome}
       </if>
     </trim>
   </sql>

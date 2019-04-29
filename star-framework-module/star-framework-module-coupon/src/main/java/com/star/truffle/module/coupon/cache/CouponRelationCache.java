@@ -1,13 +1,19 @@
 /**create by framework at 2019年03月30日 10:29:30**/
 package com.star.truffle.module.coupon.cache;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.star.truffle.core.async.ThreadPoolHelper;
 import com.star.truffle.core.jackson.StarJson;
+import com.star.truffle.module.coupon.constant.CouponBusinessTypeEnum;
 import com.star.truffle.module.coupon.dao.read.CouponRelationReadDao;
 import com.star.truffle.module.coupon.dao.write.CouponRelationWriteDao;
 import com.star.truffle.module.coupon.domain.CouponRelation;
@@ -23,6 +29,8 @@ public class CouponRelationCache {
   private CouponRelationWriteDao couponRelationWriteDao;
   @Autowired
   private CouponRelationReadDao couponRelationReadDao;
+  @Autowired
+  private ThreadPoolHelper threadPoolHelper;
 
 //  @CachePut(value = "module-weixin-couponRelation", key = "'couponRelation_id_'+#result.id", condition = "#result != null and #result.id != null")
   public CouponRelationResponseDto saveCouponRelation(CouponRelation couponRelation){
@@ -62,6 +70,48 @@ public class CouponRelationCache {
 //  @CacheEvict(value = "module-weixin-couponRelation", allEntries = true)
   public void deleteCouponRelation(CouponRelationRequestDto param) {
     couponRelationWriteDao.deleteCouponRelationByParam(param);
+  }
+
+  public List<CouponRelationResponseDto> getCouponsByProduct(String cateIds, Long productCateId, Long productId, Long userId) {
+    List<List<CouponRelationResponseDto>> temp = threadPoolHelper.run(true, 10000, () -> {
+      if(StringUtils.isBlank(cateIds)) {
+        return new ArrayList<>();
+      }
+      Map<String, Object> conditions = new HashMap<>();
+      conditions.put("businessIds", cateIds);
+      conditions.put("businessType", CouponBusinessTypeEnum.cate.type());
+      List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
+      return releations;
+    }, () -> {
+      if(null == productCateId) {
+        return new ArrayList<>();
+      }
+      Map<String, Object> conditions = new HashMap<>();
+      conditions.put("businessId", productCateId);
+      conditions.put("businessType", CouponBusinessTypeEnum.product_cate.type());
+      List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
+      return releations;
+    }, () -> {
+      if(null == productId) {
+        return new ArrayList<>();
+      }
+      Map<String, Object> conditions = new HashMap<>();
+      conditions.put("businessId", productId);
+      conditions.put("businessType", CouponBusinessTypeEnum.product.type());
+      List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
+      return releations;
+    }, () -> {
+      if(null == userId) {
+        return new ArrayList<>();
+      }
+      Map<String, Object> conditions = new HashMap<>();
+      conditions.put("businessId", userId);
+      conditions.put("businessType", CouponBusinessTypeEnum.member.type());
+      List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
+      return releations;
+    });
+    List<CouponRelationResponseDto> result = temp.stream().flatMap(list -> list.stream()).collect(Collectors.toList());
+    return result;
   }
 
 }

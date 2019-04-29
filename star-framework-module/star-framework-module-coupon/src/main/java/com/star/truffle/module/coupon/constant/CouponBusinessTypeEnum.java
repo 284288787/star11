@@ -1,5 +1,5 @@
 /**create by framework at 2019年03月30日 10:29:30**/
-package com.star.truffle.module.weixin.constant;
+package com.star.truffle.module.coupon.constant;
 
 public enum CouponBusinessTypeEnum { 
 
