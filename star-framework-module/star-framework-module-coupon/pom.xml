@@ -49,6 +49,11 @@
       <version>0.0.5-MODULE</version>
     </dependency>
     <dependency>
+      <groupId>com.star.truffle</groupId>
+      <artifactId>star-framework-module-build</artifactId>
+      <version>0.0.5-MODULE</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
