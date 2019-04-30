@@ -3,6 +3,7 @@ package com.star.truffle.module.product.dto.res;
 
 import java.util.List;
 
+import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
 import com.star.truffle.module.product.domain.Product;
 import com.star.truffle.module.product.domain.ProductPicture;
 
@@ -34,4 +35,6 @@ public class ProductResponseDto extends Product {
   private String productCateName;
   // 当前时间 毫秒
   private Long currentTimeMillis = System.currentTimeMillis();
+  // 供应的所有的优惠券
+  private List<CouponRelationResponseDto> coupons;
 }

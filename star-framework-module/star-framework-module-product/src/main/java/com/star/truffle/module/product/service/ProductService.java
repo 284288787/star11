@@ -166,7 +166,7 @@ public class ProductService {
 
   public List<CouponRelationResponseDto> getProductCoupons(ProductResponseDto product, Long userId){
     if(null != product) {
-      List<CouponRelationResponseDto> coupons = couponRelationCache.getCouponsByProduct(product.getCateIds(), product.getProductCateId(), product.getProductId(), userId);
+      List<CouponRelationResponseDto> coupons = couponRelationCache.getCouponsByCondition(product.getCateIds(), product.getProductCateId(), product.getProductId(), userId);
       return coupons;
     }
     return null;
@@ -194,6 +194,9 @@ public class ProductService {
         }
         productResponseDto.setPictures(pics);
       }
+      
+      List<CouponRelationResponseDto> coupons = getProductCoupons(productResponseDto, null);
+      productResponseDto.setCoupons(coupons);
     }
     return productResponseDto;
   }

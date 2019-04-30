@@ -24,6 +24,9 @@
       <if test="businessId != null">
         and business_id = #{businessId}
       </if>
+      <if test="businessIds != null">
+        and business_id in (${businessIds})
+      </if>
       <if test="couponId != null">
         and coupon_relation.coupon_id = #{couponId}
       </if>

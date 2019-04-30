@@ -72,7 +72,7 @@ public class CouponRelationCache {
     couponRelationWriteDao.deleteCouponRelationByParam(param);
   }
 
-  public List<CouponRelationResponseDto> getCouponsByProduct(String cateIds, Long productCateId, Long productId, Long userId) {
+  public List<CouponRelationResponseDto> getCouponsByCondition(String cateIds, Long productCateId, Long productId, Long userId) {
     List<List<CouponRelationResponseDto>> temp = threadPoolHelper.run(true, 10000, () -> {
       if(StringUtils.isBlank(cateIds)) {
         return new ArrayList<>();
