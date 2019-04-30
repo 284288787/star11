@@ -4,26 +4,21 @@ package com.star.truffle.module.coupon.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.star.truffle.core.StarServiceException;
+
 import com.star.truffle.core.jdbc.Page;
 import com.star.truffle.core.jdbc.Page.OrderType;
-import com.star.truffle.core.web.ApiCode;
-import com.star.truffle.core.web.ApiResult;
-import lombok.extern.slf4j.Slf4j;
-import com.star.truffle.module.coupon.domain.UserCoupon;
-import com.star.truffle.module.coupon.service.UserCouponService;
 import com.star.truffle.module.coupon.dto.req.UserCouponRequestDto;
 import com.star.truffle.module.coupon.dto.res.UserCouponResponseDto;
+import com.star.truffle.module.coupon.service.UserCouponService;
 
-@Slf4j
 @Controller
 @RequestMapping("/userCoupon")
 public class UserCouponController {
@@ -57,48 +52,6 @@ public class UserCouponController {
     map.put("records", count);
     map.put("rows", list);
     return map;
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/add", method = RequestMethod.POST)
-  public ApiResult<Long> add(@RequestBody UserCoupon userCoupon) {
-    try {
-      Long id = userCouponService.saveUserCoupon(userCoupon);
-      return ApiResult.success(id);
-    } catch (StarServiceException e) {
-      return ApiResult.fail(e.getCode(), e.getMsg());
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return ApiResult.fail(ApiCode.SYSTEM_ERROR);
-    }
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/edit", method = RequestMethod.POST)
-  public ApiResult<Void> edit(@RequestBody UserCouponRequestDto userCouponRequestDto) {
-    try {
-      userCouponService.updateUserCoupon(userCouponRequestDto);
-      return ApiResult.success();
-    } catch (StarServiceException e) {
-      return ApiResult.fail(e.getCode(), e.getMsg());
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return ApiResult.fail(ApiCode.SYSTEM_ERROR);
-    }
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/deleted", method = RequestMethod.POST)
-  public ApiResult<Void> delete(String ids) {
-    try {
-      userCouponService.deleteUserCoupon(ids);
-      return ApiResult.success();
-    } catch (StarServiceException e) {
-      return ApiResult.fail(e.getCode(), e.getMsg());
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return ApiResult.fail(ApiCode.SYSTEM_ERROR);
-    }
   }
 
 }

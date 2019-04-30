@@ -106,22 +106,6 @@ public class UserCouponApiController {
     }
   }
 
-  @RequestMapping(value = "/updateUserCoupon", method = RequestMethod.POST)
-  @ApiOperation(value = "编辑用户已领取的优惠券", notes = "编辑用户已领取的优惠券", httpMethod = "POST", response = ApiResult.class)
-  @ApiImplicitParams({
-  })
-  public ApiResult<Void> updateUserCoupon(@ApiIgnore UserCouponRequestDto userCouponRequestDto) {
-    try {
-      userCouponService.updateUserCoupon(userCouponRequestDto);
-      return ApiResult.success();
-    } catch (StarServiceException e) {
-      return ApiResult.fail(e.getCode(), e.getMsg());
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return ApiResult.fail(ApiCode.SYSTEM_ERROR);
-    }
-  }
-
   @RequestMapping(value = "/deleteUserCoupon", method = RequestMethod.POST)
   @ApiOperation(value = "根据主键删除用户已领取的优惠券", notes = "根据主键删除用户已领取的优惠券", httpMethod = "POST", response = ApiResult.class)
   @ApiImplicitParams({
