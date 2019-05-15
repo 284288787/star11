@@ -254,6 +254,20 @@ function initDetailInfo(){
       $(".information .specification").text(product.specification);
       $(".information .originPlace").text(product.originPlace);
       $(".productContentBox5 .desc").html(product.description);
+      var coupons = product.coupons
+      if(coupons && coupons.length > 0){
+        var couponHtml = '<div class="productContentBox4 productContentBox42">\
+            <i>领券</i>\
+            <span class="coupon">';
+        coupons.forEach(function(coupon){
+          couponHtml += '<div>'+coupon.title+'</div>';
+        });
+          couponHtml += '</span></div>';
+        $("#couponDiv").html(couponHtml);
+        $(".productContentBox42").on("tap", function(){
+          document.location.href = "coupons?pid="+product.productId;
+        });
+      }
       wx.ready(function(){
         wx.onMenuShareAppMessage({
           title: product.title + " - 五杂优选",

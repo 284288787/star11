@@ -11,14 +11,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.star.truffle.common.constants.DeletedEnum;
 import com.star.truffle.core.async.ThreadPoolHelper;
 import com.star.truffle.core.jackson.StarJson;
 import com.star.truffle.module.coupon.constant.CouponBusinessTypeEnum;
 import com.star.truffle.module.coupon.dao.read.CouponRelationReadDao;
+import com.star.truffle.module.coupon.dao.read.UserCouponReadDao;
 import com.star.truffle.module.coupon.dao.write.CouponRelationWriteDao;
 import com.star.truffle.module.coupon.domain.CouponRelation;
 import com.star.truffle.module.coupon.dto.req.CouponRelationRequestDto;
 import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
+import com.star.truffle.module.coupon.dto.res.UserCouponResponseDto;
 
 @Service
 public class CouponRelationCache {
@@ -29,6 +32,8 @@ public class CouponRelationCache {
   private CouponRelationWriteDao couponRelationWriteDao;
   @Autowired
   private CouponRelationReadDao couponRelationReadDao;
+  @Autowired
+  private UserCouponReadDao userCouponReadDao;
   @Autowired
   private ThreadPoolHelper threadPoolHelper;
 
@@ -78,6 +83,7 @@ public class CouponRelationCache {
         return new ArrayList<>();
       }
       Map<String, Object> conditions = new HashMap<>();
+      conditions.put("deleted", DeletedEnum.notdelete.val());
       conditions.put("businessIds", cateIds);
       conditions.put("businessType", CouponBusinessTypeEnum.cate.type());
       List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
@@ -87,6 +93,7 @@ public class CouponRelationCache {
         return new ArrayList<>();
       }
       Map<String, Object> conditions = new HashMap<>();
+      conditions.put("deleted", DeletedEnum.notdelete.val());
       conditions.put("businessId", productCateId);
       conditions.put("businessType", CouponBusinessTypeEnum.product_cate.type());
       List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
@@ -96,6 +103,7 @@ public class CouponRelationCache {
         return new ArrayList<>();
       }
       Map<String, Object> conditions = new HashMap<>();
+      conditions.put("deleted", DeletedEnum.notdelete.val());
       conditions.put("businessId", productId);
       conditions.put("businessType", CouponBusinessTypeEnum.product.type());
       List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
@@ -105,12 +113,30 @@ public class CouponRelationCache {
         return new ArrayList<>();
       }
       Map<String, Object> conditions = new HashMap<>();
+      conditions.put("deleted", DeletedEnum.notdelete.val());
       conditions.put("businessId", userId);
       conditions.put("businessType", CouponBusinessTypeEnum.member.type());
       List<CouponRelationResponseDto> releations = couponRelationReadDao.queryCouponRelation(conditions);
       return releations;
     });
-    List<CouponRelationResponseDto> result = temp.stream().flatMap(list -> list.stream()).collect(Collectors.toList());
+    Map<Long, UserCouponResponseDto> userCouponMap = new HashMap<>();
+    if(null != userId) {
+      Map<String, Object> conditions = new HashMap<>();
+      conditions.put("userId", userId);
+      List<UserCouponResponseDto> userCoupons = userCouponReadDao.queryUserCoupon(conditions);
+      if(null != userCoupons && ! userCoupons.isEmpty()) {
+        userCouponMap = userCoupons.stream().collect(HashMap::new, (m, v) -> m.put(v.getCouponId(), v), HashMap::putAll);
+      }
+    }
+    Map<Long, UserCouponResponseDto> tempMap = userCouponMap;
+    List<CouponRelationResponseDto> result = temp.stream().flatMap(list -> list.stream()).map(cr -> {
+      UserCouponResponseDto uc = tempMap.get(cr.getCouponId());
+      cr.setState(0);
+      if(null != uc) {
+        cr.setState(uc.getState());
+      }
+      return cr;
+    }).collect(Collectors.toList());
     return result;
   }
 

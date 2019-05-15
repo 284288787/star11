@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.star.truffle.core.StarServiceException;
 import com.star.truffle.core.web.ApiCode;
 import com.star.truffle.core.web.ApiResult;
+import com.star.truffle.module.coupon.dto.res.CouponRelationResponseDto;
+import com.star.truffle.module.product.dto.req.ProductCouponRequestDto;
 import com.star.truffle.module.product.dto.req.ProductRequestDto;
 import com.star.truffle.module.product.dto.res.ProductResponseDto;
 import com.star.truffle.module.product.service.ProductService;
@@ -30,7 +32,7 @@ public class ProductApiController {
 
   @Autowired
   private ProductService productService;
-
+  
   @RequestMapping(value = "/getProductInfo", method = RequestMethod.POST)
   @ApiOperation(value = "根据主键获取商品信息", notes = "根据主键获取商品信息", httpMethod = "POST", response = ProductResponseDto.class)
   @ApiImplicitParams({
@@ -40,6 +42,24 @@ public class ProductApiController {
     try {
       ProductResponseDto productResponseDto = productService.getProduct(productId);
       return ApiResult.success(productResponseDto);
+    } catch (StarServiceException e) {
+      return ApiResult.fail(e.getCode(), e.getMsg());
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+      return ApiResult.fail(ApiCode.SYSTEM_ERROR);
+    }
+  }
+
+  @RequestMapping(value = "/queryProductCoupon", method = RequestMethod.POST)
+  @ApiOperation(value = "获取供应的优惠券", notes = "获取供应的优惠券", httpMethod = "POST", response = ProductResponseDto.class)
+  @ApiImplicitParams({
+    @ApiImplicitParam(name = "productId", value = "商品ID", dataType = "Long", required = true, paramType = "query"),
+    @ApiImplicitParam(name = "userId", value = "登录的用户ID", dataType = "Long", required = false, paramType = "query"),
+  })
+  public ApiResult<List<CouponRelationResponseDto>> queryProductCoupon(@ApiIgnore ProductCouponRequestDto productCouponRequestDto) {
+    try {
+      List<CouponRelationResponseDto> coupons = productService.queryProductCoupon(productCouponRequestDto);
+      return ApiResult.success(coupons);
     } catch (StarServiceException e) {
       return ApiResult.fail(e.getCode(), e.getMsg());
     } catch (Exception e) {

@@ -29,6 +29,7 @@ import com.star.truffle.module.product.constant.ProductPictureTypeEnum;
 import com.star.truffle.module.product.domain.CategoryProdcutRelation;
 import com.star.truffle.module.product.domain.ProductInventory;
 import com.star.truffle.module.product.domain.ProductPicture;
+import com.star.truffle.module.product.dto.req.ProductCouponRequestDto;
 import com.star.truffle.module.product.dto.req.ProductRequestDto;
 import com.star.truffle.module.product.dto.res.ProductResponseDto;
 
@@ -196,6 +197,9 @@ public class ProductService {
       }
       
       List<CouponRelationResponseDto> coupons = getProductCoupons(productResponseDto, null);
+      if(null != coupons && coupons.size() > 2) {
+        coupons = coupons.subList(0, 2);
+      }
       productResponseDto.setCoupons(coupons);
     }
     return productResponseDto;
@@ -390,6 +394,15 @@ public class ProductService {
 
   public void syncProductSoldNumber() {
     productCache.syncProductSoldNumber();
+  }
+
+  public List<CouponRelationResponseDto> queryProductCoupon(ProductCouponRequestDto productCouponRequestDto) {
+    ProductResponseDto productResponseDto = this.productCache.getProduct(productCouponRequestDto.getProductId());
+    if (null == productResponseDto) {
+      throw new StarServiceException(ApiCode.PARAM_ERROR, "供应不存在");
+    }
+    List<CouponRelationResponseDto> coupons = getProductCoupons(productResponseDto, productCouponRequestDto.getUserId());
+    return coupons;
   }
 
 }

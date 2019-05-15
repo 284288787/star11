@@ -4,6 +4,7 @@ package com.star.truffle.core.security;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -29,11 +30,9 @@ import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import com.star.truffle.core.ConditionalOnMapProperty;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Configuration
 @EnableWebSecurity
 @ConditionalOnMapProperty(value = StarSecurityProperties.class)
@@ -160,7 +159,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       uri = new ArrayList<>();
     }
     uri.addAll(Arrays.asList("/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/v2/api-docs", "/favicon.ico", "/accessDenied", "/css/**", "/js/**", "/images/**", "/photo/**"));
-    log.info("00000000000000000 " + uri.size());
     web.ignoring().antMatchers(uri.toArray(new String[0]));
   }
 

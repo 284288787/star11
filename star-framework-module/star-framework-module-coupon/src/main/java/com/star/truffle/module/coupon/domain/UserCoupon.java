@@ -17,6 +17,6 @@ public class UserCoupon {
   private Long couponId;
   // 领取日期
   private Date createTime;
-  // 优惠券状态
+  // 优惠券状态 1:正常;2:已过期;3:已使用
   private Integer state;
 }
